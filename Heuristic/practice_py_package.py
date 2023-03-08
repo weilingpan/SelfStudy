@@ -15,17 +15,17 @@ def show(lx, ly, coords, dis):
     plt.show()
 
 def py_solve_tsp_local_search(distance, initial_order, method=''):
-    print(f'solve_tsp_local_search')
+    print(f'solve_tsp_local_search-{method}', end=' >> ')
     new_order, distance_ls = solve_tsp_local_search(
             distance,
-            x0=initial_order,
-            max_processing_time=100,
+            #x0=initial_order,
+            #max_processing_time=100,
             #perturbation_scheme="two_opt" #ps3/two_opt
         )
     return new_order
 
-def py_solve_tsp_simulated_annealing(distance):
-    print(f'solve_tsp_simulated_annealing')
+def py_solve_tsp_simulated_annealing(distance, method=''):
+    print(f'solve_tsp_simulated_annealing-{method}', end=' >> ')
     new_order, distance = solve_tsp_simulated_annealing(distance)
     return new_order
 
@@ -42,7 +42,7 @@ def new_result(x,y,new_order):
     for j in new_order[1:]:
         result += new_distance[j-1][j]
     print(result)
-    show(x, y, coords, result)
+    #show(x, y, coords, result)
 
 if __name__ == "__main__":
     start_time = time.time()
@@ -69,13 +69,46 @@ if __name__ == "__main__":
 
     x_copy, y_copy = x.copy(), y.copy()
     # ##################################################
+    new_order = py_solve_tsp_local_search(distance, initial_order, 'ps1')
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_local_search(distance, initial_order, 'ps2')
+    new_result(x_copy,y_copy,new_order)
+
     new_order = py_solve_tsp_local_search(distance, initial_order, 'ps3')
     new_result(x_copy,y_copy,new_order)
 
-    new_order = py_solve_tsp_local_search(distance, initial_order, 'two_opt')
+    new_order = py_solve_tsp_local_search(distance, initial_order, 'ps4')
     new_result(x_copy,y_copy,new_order)
 
-    new_order = py_solve_tsp_simulated_annealing(distance)
+    new_order = py_solve_tsp_local_search(distance, initial_order, 'ps5')
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_local_search(distance, initial_order, 'ps6')
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_local_search(distance, initial_order, 'two_opt') #default
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_simulated_annealing(distance, 'two_opt') #default two_opt
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_simulated_annealing(distance, 'ps1') 
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_simulated_annealing(distance, 'ps2') 
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_simulated_annealing(distance, 'ps3') 
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_simulated_annealing(distance, 'ps4') 
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_simulated_annealing(distance, 'ps5') 
+    new_result(x_copy,y_copy,new_order)
+
+    new_order = py_solve_tsp_simulated_annealing(distance, 'ps6') 
     new_result(x_copy,y_copy,new_order)
 
     #new_order, distance = solve_tsp_dynamic_programming(distance)
