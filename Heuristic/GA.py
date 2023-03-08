@@ -84,51 +84,51 @@ max_log.append(-10000000)
 optimal_value = (0,0)
 
 points = np.array([[1, 1], [2, 3], [4, 2], [3, 5]])
-# for epoch in range(generations):
-#     print('================================= generation '+str(epoch+1)+' =================================')
-#     # ---------------------------- selection(roulette wheel) ----------------------------
-#     total_fitness = 0
-#     fit = []
+for epoch in range(generations):
+    print('================================= generation '+str(epoch+1)+' =================================')
+    # ---------------------------- selection(roulette wheel) ----------------------------
+    total_fitness = 0
+    fit = []
 
-#     for chrom in range(len(population)):
-#         x = Xbase10(population[chrom][:6]) # calculate x
-#         y = Ybase10(population[chrom][-5:]) # calculate y
-#         print(x,y)
-#         f = fitness(x,y) # (1)  calculate the fitness value
-#         fit.append(f)
+    for chrom in range(len(population)):
+        x = Xbase10(population[chrom][:6]) # calculate x
+        y = Ybase10(population[chrom][-5:]) # calculate y
+        print(x,y)
+        f = fitness(x,y) # (1)  calculate the fitness value
+        fit.append(f)
 
-    # fit = [i+ abs(max(fit)) for i in fit] # 標準化
-    # total_fitness = sum(fit) # (2)  find the total fitness
+    fit = [i+ abs(max(fit)) for i in fit] # 標準化
+    total_fitness = sum(fit) # (2)  find the total fitness
     
-    # # (3) calculate the probability of selection p for each chromosome
-    # portion = []
-    # for j in range(len(fit)):
-    #     portion.append(fit[j]/total_fitness) 
+    # (3) calculate the probability of selection p for each chromosome
+    portion = []
+    for j in range(len(fit)):
+        portion.append(fit[j]/total_fitness) 
    
-    # # (4) calculate a cumulative probability q for each chromosome
-    # cumulative_p = []
-    # for p in range(len(portion)):
-    #     cumulative_p.append(round(sum(portion[:p+1]),3)) # precision being 10^-3
+    # (4) calculate a cumulative probability q for each chromosome
+    cumulative_p = []
+    for p in range(len(portion)):
+        cumulative_p.append(round(sum(portion[:p+1]),3)) # precision being 10^-3
     
-    # # (5),(6)
-    # parent = []
-    # parent_index = []
-    # while True:
-    #     if len(parent) == 2:
-    #         break
-    #     else:
-    #         randomNumber = random.uniform(0, 1) # (5) Generate a random numbrt
-    #         # find index
-    #         for p in range(len(cumulative_p)):
-    #             if cumulative_p[p] >= randomNumber:
-    #                 break
-    #         if population[p] in parent:
-    #             pass
-    #         else:
-    #             parent.append(population[p])
-    #             print('  parent %s'%len(parent),'in %s : '%p,population[p]) # (6)
-    #             parent_index.append(p)
-    # print('  parent: ',parent)            
+    # (5),(6)
+    parent = []
+    parent_index = []
+    while True:
+        if len(parent) == 2:
+            break
+        else:
+            randomNumber = random.uniform(0, 1) # (5) Generate a random numbrt
+            # find index
+            for p in range(len(cumulative_p)):
+                if cumulative_p[p] >= randomNumber:
+                    break
+            if population[p] in parent:
+                pass
+            else:
+                parent.append(population[p])
+                print('  parent %s'%len(parent),'in %s : '%p,population[p]) # (6)
+                parent_index.append(p)
+    print('  parent: ',parent)            
     # # ------------------------------------two point crossover ------------------------------------           
     # # two point crossover, CROSSOVER_RATE = 0.9
     # crossover_location = []
